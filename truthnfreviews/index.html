@@ -155,8 +155,109 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 				<div class="elementor-element elementor-element-52951977 elementor-hidden-tablet elementor-widget elementor-widget-presto_video" data-id="52951977" data-element_type="widget" data-widget_type="presto_video.default">
 				<div class="elementor-widget-container">
 					<!--presto-player:video_id=40--><figure class="wp-block-video presto-block-video  presto-provider-youtube" style="--plyr-color-main: var(--presto-player-highlight-color, #00b3ff); --presto-player-logo-width: 150px; ">
-	<presto-player preset="{" id":4,"name":"minimal","slug":"minimal","icon":"controls-play","skin":"modern","play-large":true,"rewind":false,"play":false,"fast-forward":false,"progress":false,"current-time":false,"mute":false,"volume":false,"speed":false,"pip":false,"fullscreen":false,"captions":false,"reset_on_end":true,"auto_hide":false,"show_time_elapsed":false,"captions_enabled":false,"save_player_position":false,"sticky_scroll":false,"sticky_scroll_position":"bottom="" right","on_video_end":"select","play_video_viewport":false,"hide_youtube":true,"lazy_load_youtube":false,"hide_logo":true,"border_radius":0,"caption_style":"","caption_background":"","is_locked":true,"cta":[""],"watermark":[""],"search":[""],"email_collection":[""],"action_bar":[""],"created_by":1,"created_at":"2025-03-24="" 13:20:36","updated_at":"2025-03-24="" 13:20:36","deleted_at":""}"="" branding="{" logo":"","color":"#00b3ff","logo_width":150,"player_css":""}"="" chapters="[]" overlays="[]" tracks="[]" block-attributes="{" playsinline":true,"id":40,"src":"https:\="" \="" www.youtube.com\="" watch?v="RTzJj5WzvQY","preset":4,"video_id":"RTzJj5WzvQY","title":"NERVE" flow="" -="" ((="" watch="" this!!="" ))="" nerve="" review="" nerveflow="" reviews="" supplement"}"="" analytics="" automations="" provider="youtube" id="presto-player-1" src="//www.youtube.com/embed/RTzJj5WzvQY?iv_load_policy=3&modestbranding=1&playinline=1&showinfo=0&rel=0&enablejsapi=1" media-title="NERVE FLOW - (( WATCH THIS!! )) - NERVE FLOW REVIEW - NERVEFLOW REVIEWS - NERVEFLOW SUPPLEMENT" css="" class="presto-video-id-40 presto-preset-id-4 skin-modern" skin="modern" icon-url="https://nerveflow.verifiednutrareviews.com/truthnfreviews/wp-content/plugins/presto-player/img/sprite.svg" preload="" poster="" youtube="{" nocookie":false,"channelid":"","show_count":false}"="" provider-video-id="RTzJj5WzvQY" video-id="40" playsinline="">
-		
+
+<!-- (Opcional) pré-conexão para reduzir latência -->
+<link rel="preconnect" href="https://www.youtube-nocookie.com">
+
+<style>
+.yt-shell{position:relative;width:100%;max-width:800px;margin:auto;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#000}
+.yt-cover{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;cursor:pointer;background:#000}
+.yt-cover img{width:100%;height:100%;object-fit:cover;filter:brightness(.92);user-select:none;pointer-events:none}
+.yt-play{position:absolute;width:86px;height:86px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#ff3b3b,#b40000);box-shadow:0 0 22px rgba(255,0,0,.45);display:flex;align-items:center;justify-content:center;transition:transform .15s ease}
+.yt-cover:hover .yt-play{transform:scale(1.06)}
+.yt-play::before{content:"";border-style:solid;margin-left:6px;border-width:16px 0 16px 28px;border-color:transparent transparent transparent #fff}
+.yt-iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}
+.ctrl-btn{position:absolute;right:14px;bottom:14px;width:46px;height:46px;border-radius:999px;background:rgba(0,0,0,.55);backdrop-filter:saturate(140%) blur(2px);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:4;border:1px solid rgba(255,255,255,.15);transition:transform .12s ease,background .2s ease;opacity:0;pointer-events:none}
+.ctrl-btn:hover{transform:scale(1.06);background:rgba(0,0,0,.7)}
+.ctrl-btn.play::before{content:"";border-style:solid;border-width:10px 0 10px 16px;border-color:transparent transparent transparent #fff;margin-left:3px}
+.ctrl-btn.pause{gap:6px}
+.ctrl-btn.pause::before,.ctrl-btn.pause::after{content:"";display:block;width:6px;height:18px;background:#fff;border-radius:1px}
+.yt-shell.ready .ctrl-btn{opacity:1;pointer-events:auto}
+.yt-mask-br{position:absolute;right:0;bottom:0;width:120px;height:70px;pointer-events:none;background:linear-gradient(135deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.22) 100%);opacity:0;transition:opacity .2s ease}
+.yt-shell.playing .yt-mask-br{opacity:.18}
+</style>
+
+<!-- BLOCO DO VÍDEO -->
+<div class="yt-shell" data-ytid="kIedklJJP3s">
+  <div class="yt-cover" aria-label="Play video">
+    <img loading="lazy" src="https://img.youtube.com/vi/kIedklJJP3s/maxresdefault.jpg" alt="Video cover">
+    <div class="yt-play"></div>
+  </div>
+  <div class="ctrl-btn pause" title="Pause/Play"></div>
+  <div class="yt-mask-br" aria-hidden="true"></div>
+  <noscript><img src="https://img.youtube.com/vi/kIedklJJP3s/hqdefault.jpg" alt="Video cover" style="width:100%;height:auto"></noscript>
+</div>
+
+<script>
+(function(){
+  const shells = Array.from(document.querySelectorAll('.yt-shell'));
+
+  function mountIframe(shell){
+    if(shell._mounted) return;
+    const id = shell.getAttribute('data-ytid');
+    const iframe = document.createElement('iframe');
+    iframe.className = 'yt-iframe';
+    iframe.title = 'Review Video';
+    iframe.allow = 'autoplay; encrypted-media';
+    iframe.sandbox = 'allow-same-origin allow-scripts'; // bloqueia popups/navegação externa
+    iframe.src = `https://www.youtube-nocookie.com/embed/${id}?controls=0&rel=0&modestbranding=1&fs=0&disablekb=1&iv_load_policy=3&playsinline=1&enablejsapi=1`;
+    shell.appendChild(iframe);
+    shell._iframe = iframe;
+    shell._mounted = true;
+    shell.classList.add('ready'); // revela o botão pause/play
+    const btn = shell.querySelector('.ctrl-btn');
+    btn.classList.remove('play'); btn.classList.add('pause');
+  }
+
+  const io = ('IntersectionObserver' in window)
+    ? new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            mountIframe(entry.target);
+            io.unobserve(entry.target);
+          }
+        });
+      }, {root:null, rootMargin:'300px 0px', threshold:0.01})
+    : null;
+
+  shells.forEach(shell=>{
+    const cover = shell.querySelector('.yt-cover');
+    const btn = shell.querySelector('.ctrl-btn');
+
+    if(io) io.observe(shell); else mountIframe(shell);
+
+    // PLAY (capa)
+    cover.addEventListener('click', ()=>{
+      if(!shell._mounted) mountIframe(shell);
+      const iframe = shell._iframe;
+      iframe.contentWindow.postMessage(JSON.stringify({event:'command', func:'playVideo', args:[]}), '*');
+      cover.style.display = 'none';
+      shell.classList.add('playing');
+      btn.classList.remove('play'); btn.addEventListener('transitionend',()=>{}, {once:true});
+      btn.classList.add('pause');
+    });
+
+    // PAUSE/PLAY (botão flutuante)
+    btn.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      if(!shell._mounted) return;
+      const iframe = shell._iframe;
+      const isPlaying = shell.classList.contains('playing');
+      if(isPlaying){
+        iframe.contentWindow.postMessage(JSON.stringify({event:'command', func:'pauseVideo', args:[]}), '*');
+        shell.classList.remove('playing');
+        btn.setAttribute('class','ctrl-btn play');
+      }else{
+        iframe.contentWindow.postMessage(JSON.stringify({event:'command', func:'playVideo', args:[]}), '*');
+        shell.classList.add('playing');
+        btn.setAttribute('class','ctrl-btn pause');
+      }
+    });
+  });
+})();
+</script>
+
+
     <div class="presto-iframe-fallback-container">
         <iframe style="width: 100%" title="Youtube Video" class="presto-fallback-iframe" id="presto-iframe-fallback-1" data-src="https://www.youtube.com/embed/RTzJj5WzvQY?iv_load_policy=3&modestbranding=1&playsinline=1&showinfo=0&rel=0&enablejsapi=1" allowfullscreen="" allowtransparency="" allow="autoplay"></iframe>
     </div>
